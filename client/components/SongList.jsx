@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag'; // helper to write graph ql queries
 import { graphql } from 'react-apollo';
+import { Link } from 'react-router';
+import query from '../queries/fetchSongs';
 
 // step 2
-const query = gql`
-  {
-    songs {
-      title
-      id
-    }
-  }
-`;
+// query abstracted to another file
 
 class SongList extends Component {
 
@@ -39,13 +34,25 @@ class SongList extends Component {
   }
 
   render() {
+    // query to mutate is not changed
+    // so you need to refetch data
+    // by default it does not refetch data
+
     if (this.props.data.loading) return <div>loading</div>;
     
-    console.log(this.props)
+    // add is add icon
+
+    // console.log(this.props)
     return (
       <div>
         <h2>Songs</h2>
         {this.renderSongs()}
+        <Link
+         to="/songs/new"
+         className="btn-floating btn-large red right"
+        >
+          <i className="material-icons">add</i>
+        </Link>
       </div>
     );
   }
@@ -56,4 +63,4 @@ class SongList extends Component {
 // will show up on screen temp without data
 // then component rerendered with data
 
-export default graphql(query)(SongList);
+export default graphql(query, { options: { fetchPolicy: 'cache-and-network' } })(SongList);

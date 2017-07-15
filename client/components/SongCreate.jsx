@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Link, hashHistory } from 'react-router';
+
+// local imports
+import query from '../queries/fetchSongs';
 
 class SongCreate extends Component {
   constructor(props) {
@@ -10,12 +15,26 @@ class SongCreate extends Component {
   onSubmit(event) {
     event.preventDefault();
 
-    // attempt to add new song here
+    // console.log(this.props);
+
+    // add song here
+    // send in variables
+    // graphql identifies its already running a query, so it doesn't do it again
+    this.props.mutate({
+      variables: {
+        title: this.state.title
+      },
+      refetchQueries: [{ query }]
+    }).then( (e) => { console.log(e); return hashHistory.push('/#') })
+    .catch( (err) => {
+      throw err;
+    });
   }
 
   render() {
     return (
       <div>
+        <Link to="/">Back</Link>
         <h3>Create a New Song</h3>
         <form onSubmit={this.onSubmit.bind(this)}>
           <label>Song title</label>
@@ -34,7 +53,7 @@ class SongCreate extends Component {
 // need to add name for mutation
 // so AddSong is function name, it's personal name
 // takes some params
-const mutation = qgl`
+const mutation = gql`
 mutation AddSong($title: String) {
   addSong(title: $title) {
     id
@@ -43,7 +62,4 @@ mutation AddSong($title: String) {
 }
 `;
 
-const variables = gql`
-`
-
-export default SongCreate;
+export default graphql(mutation)(SongCreate);
