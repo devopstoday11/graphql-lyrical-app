@@ -23,15 +23,33 @@ class SongList extends Component {
   // step 1
   // we need title of song
 
+  onSongDelete(id) {
+    // call mutation itself
+    this.props.mutate({ variables: { id } })
+      .then(() => this.props.data.refetch());
+    // you can also run this.props.data.refetch()
+  }
+
   renderSongs() {
     const { songs, loading } = this.props.data;
 
     // songs is undefined
     const mappedSongs = songs.map( 
-      song => <li className="collection-item" key={song.id}>{song.title}</li>
+      ({ id, title }) => 
+      <li className="collection-item" key={id}>
+        {title}
+        <i className="material-icons"
+          onClick={() => this.onSongDelete(id)}
+        >
+          delete
+        </i>
+        
+      </li>
     );
     return <ul className="collection" id="songs">{mappedSongs}</ul>
   }
+
+
 
   render() {
     // query to mutate is not changed
@@ -58,9 +76,22 @@ class SongList extends Component {
   }
 }
 
+const mutation = gql`
+mutation DeleteSong($id: ID) {
+  deleteSong(id: $id) {
+    id
+  }
+}
+`;
+
 // query executed when loaded
 // fetching data is async
 // will show up on screen temp without data
 // then component rerendered with data
 
-export default graphql(query, { options: { fetchPolicy: 'cache-and-network' } })(SongList);
+// cant double up mutation and query
+// this syntax sucks, maybe will be improved
+
+export default graphql(mutation)(
+  graphql(query, { options: { fetchPolicy: 'cache-and-network' } })(SongList)
+);
