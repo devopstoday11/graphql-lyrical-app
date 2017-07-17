@@ -7,6 +7,10 @@ query SongById($id: ID!) {
   song(id: $id) {
     id
     title
+    lyrics {
+      id
+      content
+    }
   }
 }
 `;

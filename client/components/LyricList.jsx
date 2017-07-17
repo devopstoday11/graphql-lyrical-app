@@ -7,10 +7,20 @@ class LyricList extends Component {
     super(props);
   }
 
+  renderLyrics() {
+    return this.props.lyrics.map( ({ id, content }) => {
+      return (
+        <li key={id} className="collection-item">
+          {content}
+        </li>
+      );
+    });
+  }
+
   render() {
     return (
-      <ul>
-        LyricList
+      <ul className="collection">
+        {this.renderLyrics()}
       </ul>
     );
   }
