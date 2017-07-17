@@ -11,11 +11,13 @@ import { ApolloProvider } from 'react-apollo';
 import App from './components/App';
 import SongList from './components/SongList.jsx';
 import SongCreate from './components/SongCreate.jsx';
+import SongDetail from './components/SongDetail.jsx';
 
 // react-apollo glue layer
 // out of box makes assumptions about backend
 const client = new ApolloClient({});
 
+// param defined as :id
 const Root = () => {
   return (
     <ApolloProvider client={client}>
@@ -23,6 +25,7 @@ const Root = () => {
         <Route path="/" component={App}>
           <IndexRoute component={SongList} />
           <Route path="songs/new" component={SongCreate} />
+          <Route path="songs/:id" component={SongDetail} />
         </Route>
       </Router>
     </ApolloProvider>

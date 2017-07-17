@@ -37,7 +37,7 @@ class SongList extends Component {
     const mappedSongs = songs.map( 
       ({ id, title }) => 
       <li className="collection-item" key={id}>
-        {title}
+        <Link to={`/songs/${id}`}>{title}</Link>
         <i className="material-icons"
           onClick={() => this.onSongDelete(id)}
         >
