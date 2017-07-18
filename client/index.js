@@ -15,7 +15,14 @@ import SongDetail from './components/SongDetail.jsx';
 
 // react-apollo glue layer
 // out of box makes assumptions about backend
-const client = new ApolloClient({});
+
+// http://dev.apollodata.com/react/cache-updates.html
+const client = new ApolloClient({
+  // takes every piece of data and runs it through this function
+  // it identifies that data inside the apollo client
+  // only works when id's are unique
+  dataIdFromObject: o => o.id
+});
 
 // param defined as :id
 const Root = () => {

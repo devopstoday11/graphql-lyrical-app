@@ -23,6 +23,10 @@ class LyricCreate extends Component {
   }
 
 
+  // by identifying lyric
+  // mutation refetches all lyrics for it
+  // apollo needs to see a song is updated, and then tells
+  // to rerender
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
@@ -43,6 +47,7 @@ mutation AddLyricToSong($content: String, $songId: ID) {
 	addLyricToSong(content: $content, songId: $songId) {
     id
     lyrics {
+      id
       content
     }
   }
