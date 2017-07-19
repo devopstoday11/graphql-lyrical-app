@@ -25,10 +25,7 @@ class SongCreate extends Component {
         title: this.state.title
       },
       refetchQueries: [{ query }]
-    }).then( (e) => { console.log(e); return hashHistory.push('/#') })
-    .catch( (err) => {
-      throw err;
-    });
+    }).then( (e) => hashHistory.push('/#') );
   }
 
   render() {

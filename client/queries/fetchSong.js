@@ -10,6 +10,7 @@ query SongById($id: ID!) {
     lyrics {
       id
       content
+      likes
     }
   }
 }

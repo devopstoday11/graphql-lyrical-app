@@ -28,3 +28,11 @@ presentation
 centralize queries then pass them down
 from root component
 
+## Optimisitc Responses
+call mutation
+guess at response
+ui updates
+// instantly rerender
+
+issued as network request
+response comes back
