@@ -9,7 +9,7 @@ const app = express();
 
 // Replace with your mongoLab URI
 // mla
-const MONGO_URI = 'mongodb://timurista:linkzelda1@ds153392.mlab.com:53392/timurista-lyricaldb';
+const MONGO_URI = '../../../keys'.key1;
 if (!MONGO_URI) {
   throw new Error('You must provide a MongoLab URI');
 }
