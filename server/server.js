@@ -1,4 +1,5 @@
 const express = require('express');
+const _ = require('lodash');
 const models = require('./models');
 const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
@@ -9,7 +10,7 @@ const app = express();
 
 // Replace with your mongoLab URI
 // mla
-const MONGO_URI = '../../../keys'.key1;
+const MONGO_URI = _.get('../../../keys', 'key1', 'mongodb://localhost/lyrics');
 if (!MONGO_URI) {
   throw new Error('You must provide a MongoLab URI');
 }
