@@ -23,6 +23,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'client/index.html'
-    })
+    }),
+    new webpack.SourceMapDevToolPlugin()
   ]
 };
